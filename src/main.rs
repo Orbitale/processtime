@@ -5,7 +5,7 @@ use std::process::Stdio;
 use std::time::Instant;
 
 fn main() {
-    let app = ClapCommand::new("ptime")
+    let app = ClapCommand::new("processtime")
         .arg(
             Arg::new("format")
                 .long("format")
