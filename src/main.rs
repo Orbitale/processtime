@@ -52,7 +52,7 @@ fn main() {
         _ => panic!("Unsupported format \"{}\".", format),
     };
 
-    println!("{}", display);
+    println!("\n{}", display);
 
     std::process::exit(child.code().unwrap_or(255));
 }
