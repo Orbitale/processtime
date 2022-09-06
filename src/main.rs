@@ -13,7 +13,7 @@ fn main() {
                 .multiple_values(false)
                 .takes_value(true)
                 .default_value("full")
-                .help("Set output format.")
+                .help("Set output time format. Possible values: full, s, ms, us, µs, ns")
         )
         .arg(
             Arg::new("command")
@@ -27,6 +27,11 @@ fn main() {
     let args = app.get_matches();
 
     let format = args.value_of("format").unwrap_or_default();
+
+    if !validate_format(format.into()) {
+        println!("Unsupported format \"{}\".", format);
+        std::process::exit(1);
+    }
 
     let mut command_line = args.values_of("command").unwrap().collect::<Vec<&str>>();
     let (first_command, command_line) = command_line.split_first_mut().unwrap();
@@ -55,4 +60,11 @@ fn main() {
     println!("\n{}", display);
 
     std::process::exit(child.code().unwrap_or(255));
+}
+
+fn validate_format(format: String) -> bool {
+    match format.as_str() {
+        "full" | "s" | "ms" | "us" | "µs" | "ns" => true,
+        _ => false
+    }
 }

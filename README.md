@@ -31,3 +31,25 @@ $ processtime cargo build
 ```
 
 The last line will always display the time it took to run your command.
+
+### Change the output format
+
+By default, `processtime` displays a human-readable version of the execution time.
+
+However, you might want to gather the information from a script or something and use it in other tools.
+
+For that, you can use the `--format` option, which can take the following values:
+
+* `full`: Human-readable (default format)
+* `s`: Seconds (will output `0` for scripts that take less than 1 second to run)
+* `ms`: Milliseconds
+* `us` or `µs`: Microseconds 
+* `ns`: Nanoseconds
+
+**Note:** If you use this option, you should use the `--` separator to make sure `processtime` interprets your command properly, like this for example:
+
+```
+$ processtime --format=ms -- find . -iname "*.json"
+```
+
+This way, `processtime` interprets **everything** at the right of the `--` characters to be your command to execute.
