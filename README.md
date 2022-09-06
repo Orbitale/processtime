@@ -1,6 +1,6 @@
-# Ptime
+# Process time
 
-`ptime` is an executable that allows you to run a process and display its execution time.
+`processtime` is an executable that allows you to run a process and display its execution time.
 
 ## Install
 
