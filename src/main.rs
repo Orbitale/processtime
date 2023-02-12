@@ -1,39 +1,35 @@
-use clap::Arg;
+use clap::arg;
+use clap::crate_authors;
+use clap::crate_version;
+use clap::crate_description;
+use clap::crate_name;
 use clap::Command as ClapCommand;
 use std::process::Command;
 use std::process::Stdio;
 use std::time::Instant;
 
+fn app() -> ClapCommand {
+    ClapCommand::new(crate_name!())
+        .version(crate_version!())
+        .author(crate_authors!("\n"))
+        .about(crate_description!())
+        .arg(arg!([command] ... "The command-line you want to execute.").required(true))
+        .arg(arg!(--format <FORMAT> "Set output time format. Possible values: full, s, ms, us, µs, ns").default_value("full"))
+}
+
 fn main() {
-    let app = ClapCommand::new("processtime")
-        .arg(
-            Arg::new("format")
-                .long("format")
-                .multiple_occurrences(false)
-                .multiple_values(false)
-                .takes_value(true)
-                .default_value("full")
-                .help("Set output time format. Possible values: full, s, ms, us, µs, ns")
-        )
-        .arg(
-            Arg::new("command")
-                .required(true)
-                .multiple(true)
-                .takes_value(true)
-                .help("The command-line you want to execute.")
-        )
-    ;
+    let app = app();
 
     let args = app.get_matches();
 
-    let format = args.value_of("format").unwrap_or_default();
+    let format: &str = args.get_one::<String>("format").map(|s| s.as_str()).unwrap();
 
     if !validate_format(format.into()) {
         println!("Unsupported format \"{}\".", format);
         std::process::exit(1);
     }
 
-    let mut command_line = args.values_of("command").unwrap().collect::<Vec<&str>>();
+    let mut command_line: Vec<&str> = args.get_many::<String>("command").unwrap().map(|s| s.as_str()).collect();
     let (first_command, command_line) = command_line.split_first_mut().unwrap();
 
     let mut process = Command::new(first_command);

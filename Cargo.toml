@@ -8,9 +8,10 @@ documentation = "https://docs.rs/processtime"
 readme = "README.md"
 license = "LGPL-3.0-or-later"
 repository = "https://github.com/Orbitale/processtime"
+authors = ["Alex \"Pierstoval\" Rock <alex@orbitale.io>"]
 
 [dependencies]
-clap = { version = "3.2", features = [ ] }
+clap = { version = "4.1", features = ["cargo", "color", "suggestions", "wrap_help"] }
 humantime = { version = "2.1", features = [ ] }
 
 [package.metadata.deb]
@@ -24,3 +25,8 @@ extended-description = """\
 processtime is a cross-platform version of the \"time\" shell function, to display execution time for a process.
 Its main advancement is to add a "--format"
 """
+
+[profile.release]
+opt-level = 'z' # Optimize for size.
+lto = true # Optimize at the link stage with "Link Time Optimization"
+codegen-units = 1 # Slower compilation, but more optimization
