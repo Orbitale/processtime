@@ -12,3 +12,15 @@ repository = "https://github.com/Orbitale/processtime"
 [dependencies]
 clap = { version = "3.2", features = [ ] }
 humantime = { version = "2.1", features = [ ] }
+
+[package.metadata.deb]
+section = "utils"
+assets = [
+    ["target/release/processtime", "usr/bin/", "755"],
+    ["LICENSE", "usr/share/doc/processtime/", "644"],
+    ["README.md", "usr/share/doc/processtime/README", "644"],
+]
+extended-description = """\
+processtime is a cross-platform version of the \"time\" shell function, to display execution time for a process.
+Its main advancement is to add a "--format"
+"""
