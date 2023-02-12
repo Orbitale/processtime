@@ -4,9 +4,6 @@
 name: release
 on:
     push:
-        # Enable when testing release infrastructure on a branch.
-        # branches:
-        # - ag/work
         tags:
             - 'v[0-9]+.*'
 
@@ -58,7 +55,7 @@ jobs:
             PCRE2_SYS_STATIC: 1
         strategy:
             matrix:
-                build: [ linux, linux-arm, macos, win-msvc, win-gnu, win32-msvc ]
+                build: [ linux, linux-arm, macos, win-msvc, win32-msvc ]
                 include:
                     -   build: linux
                         os: ubuntu-22.04
@@ -76,10 +73,6 @@ jobs:
                         os: windows-2022
                         rust: nightly
                         target: x86_64-pc-windows-msvc
-                    -   build: win-gnu
-                        os: windows-2022
-                        rust: nightly
-                        target: x86_64-pc-windows-gnu
                     -   build: win32-msvc
                         os: windows-2022
                         rust: nightly
