@@ -133,13 +133,12 @@ jobs:
             -   name: Build archive
                 shell: bash
                 run: |
-                    outdir="$(ci/cargo-out-dir "${{ env.TARGET_DIR }}")"
+                    ls -lah target/*
+                    
                     staging="${PROJECT_NAME}-${{ needs.create-release.outputs.project_version }}-${{ matrix.target }}"
                     
                     cp {README.md,LICENSE} "$staging/"
 
-                    ls -lah target/*
-                    
                     if [ "${{ matrix.os }}" = "windows-2022" ]; then
                       cp "target/${{ matrix.target }}/release/${BINARY_NAME}.exe" "$staging/"
                       7z a "$staging.zip" "$staging"
