@@ -1,7 +1,7 @@
 [package]
 edition = "2021"
 name = "processtime"
-version = "0.1.1"
+version = "0.2.0"
 description = "A cross-platform version of the \"time\" shell function, to display execution time for a process."
 homepage = "https://github.com/Orbitale/processtime"
 documentation = "https://docs.rs/processtime"

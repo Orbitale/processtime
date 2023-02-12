@@ -4,6 +4,10 @@
 
 ## Install
 
+### From automated releases
+
+Check out the [releases](https://github.com/Orbitale/processtime/releases) page for the latest stable version and download the one for your operating system.
+
 ### Using Cargo
 
 You can run `cargo install processtime` if you have Rust and Cargo on your machine.
